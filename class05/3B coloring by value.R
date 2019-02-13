@@ -7,3 +7,4 @@ plot(exp$Condition1, exp$Condition2, col= topo.colors(exp$State),xlab="Expressio
 plot(exp$Condition1, exp$Condition2, col= exp$State,xlab="Expression1", ylab="Expression2", main="expression")
 palette(c("red", "green", "blue"))
 
+
