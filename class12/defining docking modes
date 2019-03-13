@@ -1,0 +1,11 @@
+receptor = 1hsg_protein.pdbqt
+     ligand = ligand.pdbqt
+     num_modes = 50
+     out = all.pdbqt
+     center_x =
+     center_y =
+     center_z =
+     size_x =
+     size_y =
+     size_z =
+seed = 2009

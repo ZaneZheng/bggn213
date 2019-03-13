@@ -1,0 +1,66 @@
+---
+title: "class12: structural bioinformatics drug discovery"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## clean up out protein target structure
+```{r}
+#first we download the PBB file from the online database.
+library(bio3d)
+
+#try to save the code for the future use
+pdb.code <- "1hsg"
+file.name <- get.pdb(pdb.code)
+
+```
+```{r}
+#extract the protein only segment of this PDB file entry and write out a new PDB format filel We will also do the same for the bound ligand
+
+hiv <- read.pdb(file.name)
+hiv
+```
+
+```{r}
+#protein extraction
+prot <- trim.pdb(hiv, "protein")
+prot
+
+```
+
+
+```{r}
+prot.filename <- paste(pdb.code, "_protein.pdb", sep = "")
+write.pdb(prot, file = prot.filename)
+```
+
+```{r}
+#for the ligand
+lig <- trim.pdb(hiv, "ligand")
+lig.filename <- paste(pdb.code, "_ligand.pdb", sep = "")
+write.pdb(lig, file = lig.filename)
+```
+
+## Convert output docling results for viewing in VMD
+```{r}
+res <- read.pdb("all.pdbqt", multi = TRUE)
+write.pdb(res, "results.pdb")
+
+```
+
+```{r}
+#RMSD(root mean square distance) calculation
+res <- read.pdb("all.pdbqt", multi=TRUE) 
+ori <- read.pdb("1hsg_ligand.pdbqt")
+rmsd(ori, res)
+```
+
+
+
+
+
+
+

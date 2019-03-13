@@ -1,0 +1,74 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+stats <- read_csv("Data Export Summary.csv", row.names=1)
+stats
+```
+```{r}
+pre.by.method <- stats$Total/sum(stats$Total)*100
+names(pre.by.method) <- rownames(stats)
+pre.by.method
+```
+
+```{r}
+#proportion of structures are protein
+sum(stats$Proteins)/sum(stats$Total) *100
+```
+```{r}
+library(datapasta)
+Data Export Summary
+
+Experimental Method	Proteins	Nucleic Acids	Protein/NA Complex	Other	Total
+X-Ray	124770	1993	6451	10	133224
+NMR	10988	1273	257	8	12526
+Electron Microscopy	2057	31	723	0	2811
+Other	250	4	6	13	273
+Multi Method	127	5	2	1	135
+```
+
+```{r}
+library(bio3d)
+
+#access pdb file
+
+pdb <- read.pdb("1hsg.pdb")
+
+```
+
+```{r}
+library(bio3d.view)
+view(pdb, "overview", col="sse")
+
+```
+```{r}
+ca.inds <- atom.select(pdb, "calpha")
+ca.inds
+```
+
+```{r}
+# Print details of the first few selected atoms
+head <- head( pdb$atom[ca.inds$atom, ] )
+head
+# And selected xyz coordinates
+head( pdb$xyz[, ca.inds$xyz] )
+```
+```{r}
+pdb <- read.pdb("1HEL")
+
+# Normal Mode Analysis
+modes <- nma(pdb)
+plot(modes)
+```
+
+```{r}
+m7 <- mktrj(modes, mode=7, file = "modes.7.pdb")
+view(m7, col=vec2color( rmsf(m7)))
+```
+

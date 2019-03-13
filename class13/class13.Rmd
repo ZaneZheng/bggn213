@@ -1,0 +1,28 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##MXL genotype analysis
+
+How many G|G are there in the 
+```{r}
+mxl <- read.csv("373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs8067378 (3).csv")
+head(mxl)
+table(mxl$Genotype..forward.strand.)
+```
+
+```{r}
+library(seqinr)
+library(gtools)
+#return the values corresponding to the specified ASCII codes.
+num <- asc( s2c("DDDDCDEDCDDDDBBDDDCC@") )
+phred <- num-33
+num
+phred
+```
+

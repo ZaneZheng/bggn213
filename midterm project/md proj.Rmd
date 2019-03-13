@@ -1,0 +1,49 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(bio3d)
+seq <- read.fasta("Find_A_Gene_Project.fst")
+ide.mat <- seqidentity(seq, normalize=TRUE, similarity=FALSE, ncore=1, nseg.scale=1)
+
+```
+```{r}
+heatmap(ide.mat, cexRow = 0.8, cexCol = 0.8)
+
+```
+
+```{r}
+con.seq <- consensus(seq)
+con.seq = print(con.seq$seq)
+paste(con.seq, collapse = '')
+identities <- rowSums(ide.mat)
+identities
+```
+
+```{r}
+blast.seq <- blast.pdb(con.seq)
+blast.seq
+```
+
+```{r}
+plot.blast(blast.seq, cex = 0.8)
+```
+```{r}
+pid <- unlist(blast.seq$hit.tbl["pdb.id"])
+anno <- pdb.annotate(pid)
+hits <- anno[c(1,2,4), ]
+write.csv(hits,file="hits.csv")
+read.csv("hits.csv")
+```
+```{r}
+a <- get.pdb("6PAX_A")
+b <- get.pdb("1K78_A")
+c <- get.pdb("1PDN_C")
+```
+

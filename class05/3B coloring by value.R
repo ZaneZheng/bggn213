@@ -4,6 +4,8 @@
 #' date: "02/13/2019"
 #' output: gibhub_document
 #' 
+#' 
+#' ---
 
 exp <- read.delim("bimm143_05_rstats/up_down_expression.txt")
 nrow(exp)
