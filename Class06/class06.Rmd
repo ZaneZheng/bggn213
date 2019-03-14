@@ -1,0 +1,140 @@
+---
+title: "Class 6 R function"
+author: "Zane"
+date: "1/25/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## file reading
+
+```{r}
+read.table("https://bioboot.github.io/bggn213_S18/class-material/test1.txt", header = TRUE, sep = ",")
+
+```
+
+```{r}
+file1 <- "https://bioboot.github.io/bggn213_S18/class-material/test1.txt"
+data1 <- read.csv(file1)
+```
+
+
+```{r}
+file2 <- "https://bioboot.github.io/bggn213_S18/class-material/test2.txt"
+data2 <- read.csv(file2)
+```
+
+```{r}
+file3 <-"https://bioboot.github.io/bggn213_S18/class-material/test3.txt"
+data3 <- read.csv(file3)
+```
+
+
+## R functions
+
+```{r}
+add <- function(x, y=1) {
+  x+y
+}
+```
+
+```{r}
+add(100)
+```
+
+```{r}
+add(c(10, 12, 13, 16))
+```
+
+```{r}
+add(c(1, 3, 5, 7), 9)
+```
+
+```{r}
+rescale <- function(x) {
+rng <- range(x)
+(x - rng[1]) / (rng[2] - rng[1])
+}
+
+```
+
+```{r}
+bbb <- c(1,2,NA,3,10)
+rescale(bbb)
+```
+
+```{r}
+rescale2 <- function(x) {
+rng <- range(x, na, rm = na, rm)
+(x - rng[1]) / (rng[2] - rng[1])
+}
+```
+
+```{r}
+
+rescale2(bbb)
+
+```
+
+```{r}
+rescale3 <- function(x, na.rm=TRUE, plot=FALSE) {
+   if(na.rm) {
+     rng <-range(x, na.rm=na.rm)
+   } else {
+     rng <-range(x)
+   }
+   print("Hello")
+   answer <- (x - rng[1]) / (rng[2] - rng[1])
+   print("is it me you are looking for?")
+   if(plot) {
+      plot(answer, typ="b", lwd=4)
+     print("Balabalababala")
+}
+   print("I can see it in ...")
+   return(answer)
+}
+```
+```{r}
+rescale3( c(1,2,NA,3,10))
+```
+
+```{r}
+a = seq(1, 4)
+b = c(NA, 3, 4, 5)
+c= c(3, 4, 5, 6, NA)
+rescale3(a)
+rescale3(b, na.rm = TRUE)
+rescale3(c)
+```
+
+#use the bio3d lib
+
+```{r}
+library(bio3d)
+library(bio3d)
+s1 <- read.pdb("4AKE")  # kinase with drug
+s2 <- read.pdb("1AKE")  # kinase no drug
+s3 <- read.pdb("1E4Y")  # kinase with drug
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s2.chainA <- trim.pdb(s2, chain="A", elety="CA")
+s3.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s1.b <- s1.chainA$atom$b
+s2.b <- s2.chainA$atom$b
+s3.b <- s3.chainA$atom$b
+plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor", top = FALSE, bot = FALSE)
+plotb3(s2.b, sse=s2.chainA, typ="l", ylab="Bfactor")
+plotb3(s3.b, sse=s3.chainA, typ="l", ylab="Bfactor")
+```
+
+
+```{r}
+hc <- hclust( dist( rbind(s1.b, s2.b, s3.b) ) )
+plot(hc)
+```
+
+
+
+

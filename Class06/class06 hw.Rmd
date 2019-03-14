@@ -1,0 +1,46 @@
+---
+title: "class06 hw"
+author: "Zane"
+date: "1/31/2019"
+output: html_document
+---
+
+
+```{r}
+# By inputting the PDB ID and the regarded chain, we can get the protein info and the standard scatter plot of secondary structure in the marginal regions.
+# x: PDB ID, e.g. "4AKE"; y: chain name, e.g. "A"
+proteindata <- function(x, y, elety = "CA", typ = "l", ylab = "Bfactor") {
+  library(bio3d)
+  x1 <- read.pdb(x)
+# output#1: full protein info
+  print(x1)
+  x2 <- trim.pdb(x1, chain = y, elety = elety)
+# output#2: protein chain info
+  print(x2)
+  x3 <- x2$atom$b
+# output#3: plot the secondary structure in marginal regions
+  plotb3(x3, sse = x2, typ = typ, ylab = ylab, top = TRUE, bot = TRUE)
+  }
+```
+```{r}
+#try to simplify this...
+proteindata2 <- function(x, y, elety = "CA", typ = "l", ylab = "Bfactor") {
+#output: full protein info + scatter plot
+  library(bio3d)
+  print (read.pdb(x))
+  plotb3( trim.pdb(read.pdb(x), chain = y, elety = elety)$atom$b, sse = trim.pdb(read.pdb(x), chain = y, elety = elety), typ = typ, ylab = ylab, top = TRUE, bot = TRUE)
+}
+
+```
+
+
+
+```{r}
+proteindata(x = "4AKE", y = "A")
+```
+
+
+```{r}
+proteindata2(x = "4AKE", y = "A")
+```
+
