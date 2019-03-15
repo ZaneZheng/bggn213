@@ -2,6 +2,8 @@
 class project
 ![alt text](https://i.ytimg.com/vi/PXRX47L_3yE/maxresdefault.jpg "Please Try To Be Satisfatory ;)")
 
+Course Lecture R-Markdown Files
+
 [5: Data exploration and visualization in R](https://github.com/ZaneZheng/bggn213/blob/master/class05/class05.Rmd)
 
 [6: Why, when and how of writing your own R functions](https://github.com/ZaneZheng/bggn213/blob/master/Class06/class06.Rmd)
